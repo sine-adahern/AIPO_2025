@@ -5,61 +5,49 @@ any earthquake, while 010011110011 identifies one earthquake of length 4.
 Given a sequence of 0-s and 1-s from one seismometer, you are required to write a program to
 find the maximum duration of an earthquake expressed in seconds.
 
+
 """
 
 
-n = int(input())
+n = (input())
 
-s_a = []
+num_list = []
 
-s_l = input()
-
-for i in s_l:
-    s_a.append(i)
-
-print(s_a)
-
-a = s_a[0]
-b = s_a[1]
-c = s_a[2]
-
-one_count = 0
-counter = 0
-total_eq = 0
-
-i = 0
-
-yes_eq = False
-
-while counter < (len(s_a)-3):
-    if yes_eq == False:
-        if a == 0 and b == 0  and c == 1:
-            yes_eq = True
-            one_count+=1
-        else:
-            yes_eq = False
-
-    if yes_eq == True:
-        if (a == 0 or a == 1)and b == 1 and c == 1:
-            one_count+=1
-            yes_eq = True
-
-        elif a==1 and b == 0 and c == 0:
-            yes_eq = False
-            total_eq == one_count
-
-        elif (a == 0 or a == 1)and b == 1 and c == 0:
-            yes_eq = False
-
-
+for i in n:
+    num_list.append(int(i))
     
+#print(num_list)
+
+a = num_list[0]
+b = num_list[1]
+
+
+turn = 0
+eq = False
+eq_counter = 0
+eq_list = [0]
+
+
+while turn < (len(num_list)-2):
+    if ((a+b) == 0) or eq == True:
+        eq  = True 
+        a = b
+        b = num_list[turn+2]
+        if (b ==1) and (a == 1 or a == 0):
+            eq_counter += 1
+    else: 
+        eq = False
+    
+    if(eq == True) and (a == 1 and b == 0):
+        eq = False
+        eq_list.append(eq_counter)
+        eq_counter = 0
+        
+        
+
     a = b
-    b = c
-    c = s_a[counter+3]
-    counter+=1
-
-print(total_eq)
-
-
-
+    b = num_list[turn+2]
+    turn += 1
+    
+print(max(eq_list))
 
